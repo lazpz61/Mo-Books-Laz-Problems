@@ -1,8 +1,13 @@
 Mo Books Laz Problems API
 
-Classes:
-- User
-    Endpoints:
+- Domain:
+    - https://mobookslazproblems-api.herokuapp.com/
+
+- Classes:
+    - User
+    - Book
+
+- User Endpoints:
     - /user/add (POST)
         Adds a new user
     - /user/verifications (POST)
@@ -10,8 +15,7 @@ Classes:
     - /user/get (GET)
         Returns all of the users
 
-- Book
-    Endpoints:
+- Book Endpoints:
     - /book/add (POST)
         Adds a new book
     - /book/get (GET)
