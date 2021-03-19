@@ -50,6 +50,9 @@ class BookSchema(ma.Schema):
     class Meta:
         fields = ("id", "title", "author", "review", "recommend", "user_id")
 
+book_schema = BookSchema()
+multiple_book_schema = BookSchema(many=True)
+
 
 @app.route("/user/add", methods=["POST"])
 def add_user():
@@ -112,6 +115,11 @@ def add_book():
     db.session.commit()
 
     return jsonify("Book added")
+
+@app.route("/book/get", methods=["GET"])
+def get_all_books():
+    all_books = db.session.query(Book).all()
+    return jsonify(multiple_book_schema.dump(all_books))
 
 
 if __name__ == "__main__":
