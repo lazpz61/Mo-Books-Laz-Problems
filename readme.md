@@ -18,5 +18,5 @@ Classes:
         Returns all of the books
     - /book/get/<user_id> (GET)
         Returns all of the books by a single user
-    - /book/delete/<id> (GET)
+    - /book/delete/<id> (DELETE)
         Deletes a single book by the id
