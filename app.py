@@ -15,8 +15,8 @@ CORS(app)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String, unique=True, nullible=False)
-    password = db.Column(db.String, nullible=False)
+    username = db.Column(db.String, unique=True, nullable=False)
+    password = db.Column(db.String, nullable=False)
 
     def __init__(self, username, password):
         self.username = username
@@ -24,10 +24,29 @@ class User(db.Model):
 
 class UserSchema(ma.Schema):
     class Meta:
-        fields = (id, username)
+        fields = ("id", "username")
 
 user_schema = UserSchema()
 multiple_user_schema = UserSchema(many=True)
+
+class Book(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String, nullable=False)
+    author = db.Column(db.String, nullable=False)
+    review = db.Column(db.String, nullable=False)
+    recommend = db.Column(db.Boolean, nullable=False)
+    user_id = db.Column(db.Integer, nullable=False)
+
+    def __init__(self, title, author, review, recommend):
+        self.title = title
+        self.author = author
+        self.review = review
+        self.recommend = recommend
+        self.user_id = user_id
+
+class BookSchema(ma.Schema):
+    class Meta:
+        fields = ("id", "title", "author", "review", "recommend", "user_id")
 
 
 if __name__ == "__main__":
