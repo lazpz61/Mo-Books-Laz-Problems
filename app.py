@@ -39,7 +39,7 @@ class Book(db.Model):
     recommend = db.Column(db.Boolean, nullable=False)
     user_id = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, title, author, review, recommend):
+    def __init__(self, title, author, review, recommend, user_id):
         self.title = title
         self.author = author
         self.review = review
@@ -94,6 +94,24 @@ def verify_user():
 def get_all_users():
     all_users = db.session.query(User).all()
     return jsonify(multiple_user_schema.dump(all_users))
+
+@app.route("/book/add", methods=["POST"])
+def add_book():
+    if request.content_type != "application/json":
+        return jsonify("Error: Data must be sent as JSON.")
+
+    post_data = request.get_json()
+    title = post_data.get("title")
+    author = post_data.get("author")
+    review = post_data.get("review")
+    recommend = post_data.get("recommend")
+    user_id = post_data.get("user_id")
+
+    record = Book(title, author, review, recommend, user_id)
+    db.session.add(record)
+    db.session.commit()
+
+    return jsonify("Book added")
 
 
 if __name__ == "__main__":
