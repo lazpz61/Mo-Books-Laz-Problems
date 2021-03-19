@@ -13,7 +13,21 @@ heroku = Heroku(app)
 CORS(app)
 
 
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String, unique=True, nullible=False)
+    password = db.Column(db.String, nullible=False)
 
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
+
+class UserSchema(ma.Schema):
+    class Meta:
+        fields = (id, username)
+
+user_schema = UserSchema()
+multiple_user_schema = UserSchema(many=True)
 
 
 if __name__ == "__main__":
