@@ -87,8 +87,13 @@ def verify_user():
     valid_password = bcrypt.check_password_hash(password_hash[0], user_password)
     if valid_password:
         return jsonify("User Verified")
-        
+
     return jsonify("User NOT Verified")
+
+@app.route("/user/get", methods=["GET"])
+def get_all_users():
+    all_users = db.session.query(User).all()
+    return jsonify(multiple_user_schema.dump(all_users))
 
 
 if __name__ == "__main__":
