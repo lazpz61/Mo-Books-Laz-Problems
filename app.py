@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_cors import CORS
 from flask_heroku import Heroku
+from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://uawixqerjzcvxm:42fa8cf6bc4355ad730d9c8e897fa13d91299ab79591903dad18a65faa9331df@ec2-3-91-127-228.compute-1.amazonaws.com:5432/dao4f5kujs1tas"
@@ -11,6 +12,7 @@ db = SQLAlchemy(app)
 ma = Marshmallow(app)
 heroku = Heroku(app)
 CORS(app)
+bcrypt = Bcrypt(app)
 
 
 class User(db.Model):
@@ -47,6 +49,28 @@ class Book(db.Model):
 class BookSchema(ma.Schema):
     class Meta:
         fields = ("id", "title", "author", "review", "recommend", "user_id")
+
+
+@app.route("/user/add", methods=["POST"])
+def add_user():
+    if request.content_type != "application/json":
+        return jsonify("Error: Data must be sent as JSON.")
+
+    post_data = request.get_json()
+    username = post_data.get("username")
+    password = post_data.get("password")
+
+    existing_user = db.session.query(User).filter(User.username == username).first()
+    if existing_user is not None:
+        return jsonify("Error: Username taken.")
+
+    encrypted_password = bcrypt.generate_password_hash(password).decode("utf-8")
+
+    record = User(username, encrypted_password)
+    db.session.add(record)
+    db.session.commit()
+
+    return jsonify("User added")
 
 
 if __name__ == "__main__":
