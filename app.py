@@ -72,6 +72,24 @@ def add_user():
 
     return jsonify("User added")
 
+@app.route("/user/verification", methods=["POST"])
+def verify_user():
+    if request.content_type != "application/json":
+        return jsonify("Error verifying user")
+
+    post_data = request.get_json()
+    user_password = post_data.get("password")
+
+    password_hash = db.session.query(User.password).filter(User.username == post_data.get("username")).first()
+    if password_hash is None:
+        return jsonify("User NOT Verified")
+
+    valid_password = bcrypt.check_password_hash(password_hash[0], user_password)
+    if valid_password:
+        return jsonify("User Verified")
+        
+    return jsonify("User NOT Verified")
+
 
 if __name__ == "__main__":
     app.run(debug = True)
