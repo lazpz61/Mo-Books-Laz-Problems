@@ -18,4 +18,4 @@ sqlalchemy = "<1.4.0"
 flask-bcrypt = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.9"
