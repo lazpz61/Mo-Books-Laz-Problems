@@ -4,6 +4,7 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+pckg3 = ">4.1.0"
 
 [packages]
 flask = "*"
