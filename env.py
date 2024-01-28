@@ -1,4 +1,4 @@
-# Make sure to ignore this file!!!
+# Make sure to ignore this file
 
 import os
 
