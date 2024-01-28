@@ -15,6 +15,5 @@ psycopg2 = "*"
 sqlalchemy = "<1.4.0"
 flask-bcrypt = "*"
 
-
 [requires]
 python_version = "3.9"
