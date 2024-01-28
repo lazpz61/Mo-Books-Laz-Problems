@@ -15,6 +15,7 @@ psycopg2 = "*"
 sqlalchemy = "<1.4.0"
 flask-bcrypt = "*"
 Werkzeug = "2.3.7"
+bcrypt =  "*"
 
 [dev-packages]
 
