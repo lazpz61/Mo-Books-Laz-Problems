@@ -17,7 +17,7 @@ flask-bcrypt = "*"
 python-dotenv = "*"
 
 [dev-packages]
-pckg3 = ">4.1.0"
+
 
 [requires]
 python_version = "3.9"
