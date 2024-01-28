@@ -1,10 +1,7 @@
 [[source]]
-name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
-
-[dev-packages]
-pckg3 = ">4.1.0"
+name = "pypi"
 
 [packages]
 flask = "*"
@@ -18,6 +15,9 @@ psycopg2 = "*"
 sqlalchemy = "<1.4.0"
 flask-bcrypt = "*"
 python-dotenv = "*"
+
+[dev-packages]
+pckg3 = ">4.1.0"
 
 [requires]
 python_version = "3.9"
