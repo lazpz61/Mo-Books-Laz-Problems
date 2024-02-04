@@ -11,18 +11,32 @@ import env
 # import env Making change so that I can do a Git Push
 
 
-# SQLALCHEMY_DATABASE_URI = "postgres://bberqgpolincum:eef17db2fcda2ddc2362fadedb938167d195d3dc623f5cb455245e63560aeed0@ec2-44-213-151-75.compute-1.amazonaws.com:5432/d5o4931kre5tm9"
-
 app = Flask(__name__)
+
+
+# Config for PostgreSQL database
+SQLALCHEMY_DATABASE_URI = "postgres://bberqgpolincum:eef17db2fcda2ddc2362fadedb938167d195d3dc623f5cb455245e63560aeed0@ec2-44-213-151-75.compute-1.amazonaws.com:5432/d5o4931kre5tm9"
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("SQLALCHEMY_DATABASE_URI")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-print(os.environ.get("SQLALCHEMY_DATABASE_URI"))
+# print(os.environ.get("SQLALCHEMY_DATABASE_URI"))
+
+# SQLLite Code
+# basedir = os.path.abspath(os.path.dirname(__file__))
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'app.sqlite')
+
 
 db = SQLAlchemy(app)
-ma = Marshmallow(app)
+ma = Marshmallow()
 heroku = Heroku(app)
 CORS(app)
 bcrypt = Bcrypt(app)
+
+
+
+
+
+
+
 
 
 class User(db.Model):
@@ -37,6 +51,7 @@ class User(db.Model):
 class UserSchema(ma.Schema):
     class Meta:
         fields = ("id", "username")
+        
 
 user_schema = UserSchema()
 multiple_user_schema = UserSchema(many=True)
@@ -145,4 +160,5 @@ def delete_book(id):
 
 
 if __name__ == "__main__":
+    ma.init_app(app)
     app.run(debug = True)
