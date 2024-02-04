@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 
 # Config for PostgreSQL database
-SQLALCHEMY_DATABASE_URI = "postgres://bberqgpolincum:eef17db2fcda2ddc2362fadedb938167d195d3dc623f5cb455245e63560aeed0@ec2-44-213-151-75.compute-1.amazonaws.com:5432/d5o4931kre5tm9"
+SQLALCHEMY_DATABASE_URI = "postgres://uahilfbfyynjxg:756bc307d252de3a95333f4be93adf480a4e6f3071cdc67609ca5d1d266ea0da@ec2-18-205-44-21.compute-1.amazonaws.com:5432/d5ikd7bbko87qc"
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("SQLALCHEMY_DATABASE_URI")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # print(os.environ.get("SQLALCHEMY_DATABASE_URI"))
