@@ -124,6 +124,16 @@ def get_all_users():
     all_users = db.session.query(User).all()
     return jsonify(multiple_user_schema.dump(all_users))
 
+@app.route("/user/get/username/<username>", methods=["GET"])
+def get_user_by_username(username):
+    try:
+        user = User.query.filter_by(username=username).first()
+        if user is None:
+            return jsonify({"message": "User not found"}), 404
+        return user_schema.dump(user)
+    except Exception as e:
+        return jsonify({"message": str(e)}), 500
+
 @app.route("/book/add", methods=["POST"])
 def add_book():
     if request.content_type != "application/json":
