@@ -157,6 +157,36 @@ def get_all_books():
     all_books = db.session.query(Book).all()
     return jsonify(multiple_book_schema.dump(all_books))
 
+
+@app.route("/book/update/<id>", methods=["PUT"])
+def update_book(id):
+    if request.content_type != "application/json":
+        return jsonify("Error: Data must be sent as JSON."), 400
+
+    post_data = request.get_json()
+    book = Book.query.get(id)
+
+    if not book:
+        return jsonify("Error: Book not found."), 404
+
+    title = post_data.get("title")
+    author = post_data.get("author")
+    review = post_data.get("review")
+    recommend = post_data.get("recommend")
+
+    if title: book.title = title
+    if author: book.author = author
+    if review: book.review = review
+    if recommend is not None: book.recommend = recommend
+
+    try:
+        db.session.commit()
+        return jsonify("Book Updated"), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"message": str(e)}), 500
+
+
 @app.route("/book/get/<user_id>", methods=["GET"])
 def get_all_books_by_user(user_id):
     all_books = db.session.query(Book).filter(Book.user_id == user_id).all()
